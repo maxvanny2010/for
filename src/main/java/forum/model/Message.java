@@ -169,7 +169,7 @@ public class Message extends AbstractEntity<Integer> {
     @Override
     public final String toString() {
         return new StringJoiner(", ",
-                Message.class.getSimpleName() + "[", "]")
+                "\n" + Message.class.getSimpleName() + "[", "]")
                 .add("id=" + this.id)
                 .add("desc='" + this.description + "'")
                 .add("dateTime=" + this.created)

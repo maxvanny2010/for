@@ -221,8 +221,7 @@ public class Post extends AbstractEntity<Integer> {
     @Override
     public final String toString() {
         return new StringJoiner(", ",
-                Post.class.getSimpleName() + "[", "]")
-                .add("\n")
+                "\n" + Post.class.getSimpleName() + "[", "]")
                 .add("id=" + this.id)
                 .add("name='" + this.name + "'")
                 .add("description='" + this.description + "'")
