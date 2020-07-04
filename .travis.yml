@@ -6,7 +6,8 @@ sudo: false
 services:
   - postgresql
 
-before_install: skip
+before_script:
+  - psql -c 'create database forum;' -U postgres
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
