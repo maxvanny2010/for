@@ -4,23 +4,24 @@ import forum.Main;
 import forum.model.Post;
 import forum.service.post.PostUserService;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.HashSet;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -39,33 +40,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Sql(scripts = "classpath:schema.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class PostControllerTest {
-//    @MockBean
- //   PostUserService service;
+    @MockBean
+    private PostUserService service;
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithMockUser
     public void shouldReturnDefaultMessage() throws Exception {
-        final Post posts = new Post(null, "С", "куплю С ради С", null, "user");
-        posts.setMessages(new HashSet<>());
+        final LinkedMultiValueMap<String, String> requestParams = new LinkedMultiValueMap<>();
+        requestParams.add("description", "куплю С ради С");
+        requestParams.add("name", "C");
+        requestParams.add("names", "user");
+        requestParams.add("date", "");
 
         this.mockMvc.perform(post("/create")
-                .param("description", posts.getDescription())
-                // как передать Set?
-                // .param("messages", posts.getMessages())
-                .param("name", posts.getName())
-                //как передать обьект?
-                // .requestAttr("posts", posts)
-                // .sessionAttr("posts", posts)
-                // .flashAttr("posts", posts)
-                .param("names", "user")
-                .param("date", ""))
+                .params(requestParams))
+               // .param("names", "user")
+              //  .param("date", ""))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
-        final PostUserService service = mock(PostUserService.class);
         final ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
-        verify(service).add(argument.capture());
+        verify(this.service).add(argument.capture());
         assertThat(argument.getValue().getName(), is("С"));
     }
 
