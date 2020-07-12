@@ -72,7 +72,7 @@ public abstract class UserServiceAbs {
      * @return list of user all users
      */
     public List<User> getAll() {
-        return (List<User>) this.users.findAll();
+        return this.users.findAll();
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class UserServiceAbs {
      * @return user or null
      */
     public User getByName(final String name) {
-        return this.users.findUserByUsername(name);
+        return this.users.findByUsername(name);
     }
 
 }

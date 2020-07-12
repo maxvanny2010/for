@@ -149,27 +149,30 @@ public class PostController {
             case "show":
                 if (isSame) {
                     post = this.postsUser.findByNameAndId(name, id);
-                    if (Objects.nonNull(post)) {
-                        final List<Message> msg = this.message.getAll(post);
-                        model.addAttribute("post", post);
-                        model.addAttribute("msg", msg);
-                        model.addAttribute("name", name);
+                    if (idShowPost(name, model, post)) {
                         return "post";
                     }
                 }
                 break;
             default:
                 post = this.postsUser.findByNameAndId(name, id);
-                if (Objects.nonNull(post)) {
-                    final List<Message> msg = this.message.getAll(post);
-                    model.addAttribute("post", post);
-                    model.addAttribute("msg", msg);
-                    model.addAttribute("name", authorityName);
+                if (idShowPost(authorityName, model, post)) {
                     return "post";
                 }
                 break;
         }
         return "redirect:/404";
+    }
+
+    private boolean idShowPost(@RequestParam(value = "name", required = false) final String name, final Model model, final Post post) {
+        if (Objects.nonNull(post)) {
+            final List<Message> msg = this.message.getAll(post);
+            model.addAttribute("post", post);
+            model.addAttribute("msg", msg);
+            model.addAttribute("name", name);
+            return true;
+        }
+        return false;
     }
 
     @PostMapping("/update")

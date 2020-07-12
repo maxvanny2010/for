@@ -4,7 +4,6 @@ import forum.Main;
 import forum.model.Post;
 import forum.service.post.PostUserService;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -56,8 +54,8 @@ public class PostControllerTest {
 
         this.mockMvc.perform(post("/create")
                 .params(requestParams))
-               // .param("names", "user")
-              //  .param("date", ""))
+                // .param("names", "user")
+                //  .param("date", ""))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection());
         final ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
