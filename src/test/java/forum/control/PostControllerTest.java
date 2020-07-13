@@ -79,7 +79,7 @@ public class PostControllerTest {
         requestParams.add("id", "1");
         requestParams.add("description", "куплю С ради С");
         requestParams.add("name", "UPDATE");
-        requestParams.add("authorPost", "user");
+        requestParams.add("postAuthor", "user");
         requestParams.add("date", "3000-10-10T11:11");
         this.mockMvc.perform(post("/update")
                 .params(requestParams))
