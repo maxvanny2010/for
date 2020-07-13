@@ -3,13 +3,13 @@ function prepareUpdate(input) {
     let idPost = id[0];
     let idMsg = id[1];
     let authorMsg = id[2];
-    let authorPost = id[3];
+    let postAuthor = id[3];
     let message = $('#DescU_' + input.id).val();
     $('#comment').html(`
       <form name="comm" id="comm" action="/post/message/update" method="POST">
                             <input type="hidden" name="idMsgPostUpdate" value="${idPost}">
                             <input type="hidden" name="idMsgUpdate" value="${idMsg}">
-                            <input type="hidden" name="authorPost" value="${authorPost}">
+                            <input type="hidden" name="postAuthor" value="${postAuthor}">
                             <input type="hidden" name="authorMsg" value="${authorMsg}">
                                 <div class="form-group">
                                     <label class="sr-only" for="msgUpdate">message</label>

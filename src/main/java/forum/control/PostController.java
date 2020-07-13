@@ -45,7 +45,7 @@ public class PostController {
     public String updateMessage(
             @RequestParam(value = "idMsgUpdate") final Integer idMsg,
             @RequestParam(value = "idMsgPostUpdate") final Integer idPost,
-            @RequestParam(value = "authorPost") final String authorPost,
+            @RequestParam(value = "postAuthor") final String authorPost,
             @RequestParam(value = "authorMsg") final String authorMsg,
             @RequestParam(value = "msgUpdate") final String msg) {
         final String authorityName = this.getAuthorityName();
@@ -89,7 +89,7 @@ public class PostController {
     @PostMapping("/post/message/create")
     public String createMessage(@RequestParam(value = "id") final Integer id,
                                 @RequestParam(value = "message") final String msg,
-                                @RequestParam(value = "authorPost") final String authorPost) {
+                                @RequestParam(value = "postAuthor") final String authorPost) {
         final String authorityName = this.getAuthorityName();
         final boolean isAdmin = Objects.equals("admin", authorPost);
         final boolean isAuthorPost = Objects.equals(authorPost, authorityName);
@@ -177,7 +177,7 @@ public class PostController {
 
     @PostMapping("/update")
     public final String update(@ModelAttribute final Post posts,
-                               @RequestParam(value = "authorPost") final String authorPost,
+                               @RequestParam(value = "postAuthor") final String authorPost,
                                @RequestParam(value = "date") final String date) {
         final String name = this.getAuthorityName();
         final boolean isAdmin = Objects.equals("admin", name);
@@ -197,7 +197,7 @@ public class PostController {
 
     @PostMapping("post/update")
     public final String update(@RequestParam(value = "idPost") final Integer idPost,
-                               @RequestParam(value = "authorPostUpdate") final String authorPost) {
+                               @RequestParam(value = "postAuthor") final String authorPost) {
         final String name = this.getAuthorityName();
         final boolean isAdmin = Objects.equals("admin", name);
         if (this.isNames(authorPost, name) || isAdmin) {
@@ -230,7 +230,7 @@ public class PostController {
 
     @PostMapping("/remove")
     public final String remove(@RequestParam(value = "id") final Integer id,
-                               @RequestParam(value = "authorPostUpdate") final String authorPost) {
+                               @RequestParam(value = "postAuthor") final String authorPost) {
         final String name = this.getAuthorityName();
         final boolean isAdmin = Objects.equals("admin", name);
         if (this.isNames(authorPost, name) || isAdmin) {

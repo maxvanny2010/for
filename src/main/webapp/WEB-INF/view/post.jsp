@@ -112,7 +112,7 @@
                         <form name='message' id="msg" action="<spring:url  value="/post/message/create"/>"
                               method='POST'>
                             <input type="hidden" name="id" value="${post.id}">
-                            <input type="hidden" name="authorPost" value="${post.author}">
+                            <input type="hidden" name="postAuthor" value="${post.author}">
                             <c:if test="${not empty name && name ne 'anonymousUser'}">
                                 <div class="form-group">
                                     <label class="sr-only" for="message">message</label>
